@@ -55,8 +55,6 @@ local function load()
             workspaces[it()] = it()
         end
         io.close(f)
-    else
-        vim.notify("Cannot open data file", "error", notif_options)
     end
 end
 

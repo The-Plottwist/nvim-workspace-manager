@@ -85,7 +85,11 @@ end
 
 function M.add(strName)
 
-    if (strName == nil) or (strName == "") then return end
+    if (strName == nil) then
+        return
+    elseif (strName == "") then
+        strName = vim.fs.basename(vim.fn.getcwd())
+    end
 
     if check_workspace(strName) then
         vim.notify("Already exists", "error", notif_options)
@@ -169,7 +173,7 @@ function M.setup(tableOpts)
     --setup user commands
     vim.cmd([[
         command! -nargs=0 WorkspaceList lua require("workspace-manager").list()
-        command! -nargs=1 WorkspaceAdd lua require("workspace-manager").add("<args>")
+        command! -nargs=? WorkspaceAdd lua require("workspace-manager").add("<args>")
         command! -nargs=1 WorkspaceDel lua require("workspace-manager").del("<args>")
         command! -nargs=1 WorkspaceRename lua require("workspace-manager").rename("<args>")
         command! -nargs=1 WorkspaceChange lua require("workspace-manager").change_workspace("<args>")

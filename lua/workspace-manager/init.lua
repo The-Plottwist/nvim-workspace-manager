@@ -174,12 +174,13 @@ function M.setup(tableOpts)
     load()
 
     --setup user commands
+    --TODO: Add completion
     vim.cmd([[
         command! -nargs=0 WorkspaceList lua require("workspace-manager").list()
-        command! -nargs=? WorkspaceAdd lua require("workspace-manager").add("<args>")
-        command! -nargs=1 WorkspaceDel lua require("workspace-manager").del("<args>")
-        command! -nargs=1 WorkspaceRename lua require("workspace-manager").rename("<args>")
-        command! -nargs=1 WorkspaceChange lua require("workspace-manager").change_workspace("<args>")
+        command! -nargs=? WorkspaceAdd lua require("workspace-manager").add(<q-args>)
+        command! -nargs=1 WorkspaceDel lua require("workspace-manager").del(<q-args>)
+        command! -nargs=1 WorkspaceRename lua require("workspace-manager").rename(<q-args>)
+        command! -nargs=1 WorkspaceChange lua require("workspace-manager").change_workspace(<q-args>)
     ]])
 end
 

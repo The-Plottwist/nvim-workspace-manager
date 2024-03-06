@@ -108,7 +108,7 @@ end
 
 function M.del(strName)
 
-    if (strName == nil) or (strName == "") then
+    if (strName == nil) then
         return
     elseif strName == cur_workspace then
         vim.notify("Cannot delete current workspace", "error", notif_options)
@@ -118,6 +118,9 @@ function M.del(strName)
     if check_workspace(strName) then
         workspaces[strName] = nil
         save()
+    else
+        vim.notify("No such workspace", "error", notif_options)
+        return
     end
 
     --run hook

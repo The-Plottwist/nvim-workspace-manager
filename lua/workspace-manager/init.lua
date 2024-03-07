@@ -129,7 +129,14 @@ function M.del(strName)
     end
 end
 
-function M.list()
+function M.list(boolCompletion)
+    if boolCompletion == true then
+        for i,_ in pairs(workspaces) do
+            print(i)
+        end
+        return
+    end
+
     for i,j in pairs(workspaces) do
         print(i, '=', j)
     end
@@ -174,13 +181,16 @@ function M.setup(tableOpts)
     load()
 
     --setup user commands
-    --TODO: Add completion
     vim.cmd([[
+        function! WorkspaceList(A,L,P)
+            let s = execute('lua require("workspace-manager").list(true)')
+            return execute("echon s[1:]")
+        endfunction
         command! -nargs=0 WorkspaceList lua require("workspace-manager").list()
         command! -nargs=? WorkspaceAdd lua require("workspace-manager").add(<q-args>)
-        command! -nargs=1 WorkspaceDel lua require("workspace-manager").del(<q-args>)
-        command! -nargs=1 WorkspaceRename lua require("workspace-manager").rename(<q-args>)
-        command! -nargs=1 WorkspaceChange lua require("workspace-manager").change_workspace(<q-args>)
+        command! -nargs=1 -complete=custom,WorkspaceList WorkspaceDel lua require("workspace-manager").del(<q-args>)
+        command! -nargs=1 -complete=custom,WorkspaceList WorkspaceRename lua require("workspace-manager").rename(<q-args>)
+        command! -nargs=1 -complete=custom,WorkspaceList WorkspaceChange lua require("workspace-manager").change_workspace(<q-args>)
     ]])
 end
 

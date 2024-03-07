@@ -74,13 +74,14 @@ end
 function M.is_in_workspace()
 
     local cur_wd = vim.fn.getcwd()
+    local results = {}
     for i,j in pairs(workspaces) do
         if cur_wd == j then
-            return i
+            table.insert(results, i)
         end
     end
 
-    return false
+    return results
 end
 
 function M.add(strName)

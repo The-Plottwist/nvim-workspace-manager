@@ -84,11 +84,13 @@ function M.is_in_workspace()
     return results
 end
 
+function M.get_workspace_name()
+    return cur_workspace
+end
+
 function M.add(strName)
 
-    if (strName == nil) then
-        return
-    elseif (strName == "") then
+    if (strName == nil) or (strName == "") then
         strName = vim.fs.basename(vim.fn.getcwd())
     end
 

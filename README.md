@@ -70,7 +70,7 @@ require("workspace-manager").setup({
     event_hooks = {
         on_add = function(strName)
             require("session-manager").add(strName)
-            end,
+        end,
         on_del = function(strDeletedWorkspace)
             local cur_workspace = require("workspace-manager").get_workspace_name()
             require("session-manager").change_session(cur_workspace, false)

@@ -164,8 +164,8 @@ end
 
 function M.rename(strName)
 
-    if cur_workspace == "" then
-        vim.notify("Not in workspace", "error", notif_options)
+    if (strName == nil) then
+        return
     end
 
     workspaces[strName] = workspaces[cur_workspace]
@@ -197,8 +197,8 @@ function M.setup(tableOpts)
         endfunction
         command! -nargs=0 WorkspaceList lua require("workspace-manager").list()
         command! -nargs=? WorkspaceAdd lua require("workspace-manager").add(<q-args>)
+        command! -nargs=1 WorkspaceRename lua require("workspace-manager").rename(<q-args>)
         command! -nargs=1 -complete=custom,WorkspaceList WorkspaceDel lua require("workspace-manager").del(<q-args>)
-        command! -nargs=1 -complete=custom,WorkspaceList WorkspaceRename lua require("workspace-manager").rename(<q-args>)
         command! -nargs=1 -complete=custom,WorkspaceList WorkspaceChange lua require("workspace-manager").change_workspace(<q-args>)
     ]])
 end

@@ -46,6 +46,7 @@ local defaults = {
 
 local M = {}
 
+
 local function load()
 
     local f = io.open(data_file, 'r')
@@ -116,7 +117,7 @@ function M.add(strName)
 
     --run hook
     if defaults.event_hooks.on_add ~= nil then
-        pcall(defaults.event_hooks.on_add)
+        pcall(defaults.event_hooks.on_add, strName)
     end
 end
 
@@ -139,7 +140,7 @@ function M.del(strName)
 
     --run hook
     if defaults.event_hooks.on_del ~= nil then
-        pcall(defaults.event_hooks.on_del)
+        pcall(defaults.event_hooks.on_del, strName)
     end
 end
 

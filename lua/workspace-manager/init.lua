@@ -85,7 +85,17 @@ function M.is_in_workspace()
     return results
 end
 
-function M.get_workspace_name()
+function M.get_workspace_name(boolPrint)
+
+    if boolPrint == true then
+        if cur_workspace == "" then
+            print("None")
+        else
+            print(cur_workspace)
+        end
+        return
+    end
+
     return cur_workspace
 end
 
@@ -197,6 +207,7 @@ function M.setup(tableOpts)
         endfunction
         command! -nargs=0 WorkspaceList lua require("workspace-manager").list()
         command! -nargs=? WorkspaceAdd lua require("workspace-manager").add(<q-args>)
+        command! -nargs=0 WorkspaceName lua require("workspace-manager").get_workspace_name(true)
         command! -nargs=1 WorkspaceRename lua require("workspace-manager").rename(<q-args>)
         command! -nargs=1 -complete=custom,WorkspaceList WorkspaceDel lua require("workspace-manager").del(<q-args>)
         command! -nargs=1 -complete=custom,WorkspaceList WorkspaceChange lua require("workspace-manager").change_workspace(<q-args>)

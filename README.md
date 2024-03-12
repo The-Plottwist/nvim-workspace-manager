@@ -14,10 +14,11 @@ Intended usage is with [nvim session manager](https://github.com/The-Plottwist/n
 |WorkspaceAdd|Add workspace <br>- Uses directory name if no argument is given|
 |WorkspaceDel|Delete workspace|
 |WorkspaceList|List workspaces|
-|WorkspaceChange|Change workspace|
+|WorkspaceChange*|Change workspace|
 |WorkspaceName|Print current workspace name|
 |WorkspaceRename|Rename current workspace|
   
+*There is an error in lua which calls the internal function ```change_workspace()``` oddly twice, everything works fine on the second call however.
   
 ### Functions:
 |Name|Description|
@@ -27,7 +28,7 @@ Intended usage is with [nvim session manager](https://github.com/The-Plottwist/n
 |list(boolCompletion)|Lists workspaces <br>- Optional: *```boolCompletion = false```* (prints only names instead)|
 |rename(strName)|Renames current workspace <br>- Mandatory: *```strName```*|
 |change_workspace(strName)|Changes active workspace <br>- Mandatory: *```strName```*|
-|is_in_workspace()|Returns a table containing workspaces which has the same path as CWD|
+|is_in_workspace()|Returns a table containing workspace names which has the same path as CWD|
 |get_workspace_name(boolPrint)|Returns current workspace name <br>- Optional: *```boolPrint = false```* (prints it instead)|
   
   
@@ -54,8 +55,8 @@ defaults = {
 }
 ```
   
+**Notes**
   
-### Notes:
 -To modify: *```require("workspace-manager").setup({event_hooks = {on_add = ...,}})```*
   
 -Does not load any workspaces by default

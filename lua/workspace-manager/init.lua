@@ -37,8 +37,9 @@ local defaults = {
 
     event_hooks = {
         on_add = nil,
-        on_del= nil,
+        on_del = nil,
         on_change = nil,
+        on_rename = nil
     }
 }
 
@@ -171,6 +172,11 @@ function M.rename(strName)
     workspaces[cur_workspace] = nil
     cur_workspace = strName
     save()
+
+    --run hook
+    if defaults.event_hooks.on_rename ~= nil then
+        pcall(defaults.event_hooks.on_rename)
+    end
 end
 
 
